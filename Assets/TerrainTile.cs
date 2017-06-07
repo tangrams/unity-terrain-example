@@ -16,9 +16,10 @@ public class TerrainTile : MonoBehaviour
     private int mResolution;
     private bool mUseNormalMap;
 
-    // When this GameObject is created, create an elevation mesh.
+    // Runs once when the GameObject is created.
     public void Start()
     {
+        // When this GameObject is created, create an elevation mesh.
         ApplyElevation();
     }
 
@@ -52,6 +53,7 @@ public class TerrainTile : MonoBehaviour
         mUseNormalMap = UseNormalMap;
     }
 
+    // Runs once per frame.
     public void Update()
     {
         // Rotate the model to see all the pretty lighting.
