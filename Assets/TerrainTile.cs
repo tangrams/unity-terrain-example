@@ -56,8 +56,11 @@ public class TerrainTile : MonoBehaviour
     // Runs once per frame.
     public void Update()
     {
-        // Rotate the model to see all the pretty lighting.
-        transform.Rotate(Vector3.up, Time.deltaTime * 12.0f);
+        // When the mouse button is held, use the mouse position to rotate the model.
+        if (Input.GetMouseButton(0))
+        {
+            transform.Rotate(Vector3.up, -Input.GetAxis("Mouse X") * 10.0f);
+        }
 
         // If the editor has updated any options, apply them now.
         if (mResolution != Resolution || mUseNormalMap != UseNormalMap)
