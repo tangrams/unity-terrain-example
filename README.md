@@ -6,11 +6,13 @@ This is a Unity3D project that demonstrates how to show a shaded 3D mesh using d
 
 When you open the project in the Unity Editor, find the `TerrainExample.unity` scene in the project browser, open it, and then play the scene. Click and drag to rotate the terrain tile while the scene is playing.
 
-Below is an explanation of the project, file-by-file:
+The meaningful files for the demo are all in the [Assets](Assets/) folder. Below is an explanation of each of these files:
 
 ## [elevation.png](Assets/elevation.png)
 
 This is a tile of elevation data encoded as a PNG image in the "Terrarium" format: https://mapzen.com/documentation/terrain-tiles/formats/#terrarium
+
+This specific tile is at the tile address `11/1518/858`, and its URL from the Mapzen Terrain Service is `https://tile.mapzen.com/mapzen/terrain/v1/terrarium/11/1518/858.png?api_key=YOUR_MAPZEN_API_KEY_HERE`.
 
 Pay close attention to the _import settings_ used for this image in the Unity Editor:
  - We need to access the data in this image from code running on the CPU (not the GPU), so the `Read/Write Enabled` option is checked.
@@ -21,6 +23,8 @@ Pay close attention to the _import settings_ used for this image in the Unity Ed
 ## [normals.png](Assets/normals.png)
 
 This is a tile of terrain normal vector data encoded as a PNG image in a fairly standard "normal map" format: https://mapzen.com/documentation/terrain-tiles/formats/#normal
+
+This specific tile is at the tile address `11/1518/858` (matching our elevation tile), and its URL from the Mapzen Terrain Service is `https://tile.mapzen.com/mapzen/terrain/v1/normal/11/1518/858.png?api_key=YOUR_MAPZEN_API_KEY_HERE`.
 
 Mapzen's normal maps contain data in the alpha channel that encodes approximate elevation, but we don't use that here.
 
