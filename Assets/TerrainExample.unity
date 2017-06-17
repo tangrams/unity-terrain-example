@@ -410,15 +410,15 @@ MonoBehaviour:
   m_FillRect: {fileID: 2143185987}
   m_HandleRect: {fileID: 248581464}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 200
+  m_MinValue: 1
+  m_MaxValue: 128
   m_WholeNumbers: 1
   m_Value: 32
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 260286211}
-        m_MethodName: SetResolution
+        m_MethodName: SetMeshResolution
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

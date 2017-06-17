@@ -12,33 +12,36 @@ public class TerrainTile : MonoBehaviour
     public Texture2D ElevationTexture;
     public Texture2D NormalTexture;
 
-    // Internal fields:
-    private int mResolution;
-    private bool mUseNormalMap;
-
     // Runs once when the GameObject is created.
     public void Start()
     {
         // When this GameObject is created, create an elevation mesh.
-        ApplyElevation();
+        CreateMesh();
     }
 
     public void SetUseNormalMap(bool use)
     {
+        // Update the mesh to use or disable the normal map.
         UseNormalMap = use;
+        CreateMesh();
     }
 
-    public void SetResolution(float resolution)
+    public void SetMeshResolution(float resolution)
     {
-        Resolution = (int)resolution;
+        // Update the mesh to the nearest power-of-two resolution.
+        int r = (int)Math.Pow(2.0f, Math.Floor(Math.Log(resolution, 2.0f)));
+        if (Resolution != r)
+        {
+            Resolution = r;
+            CreateMesh();
+        }
     }
 
     // Generate a uniform grid of vertices, elevate them according to a texture, and apply a normal map.
-    private void ApplyElevation()
+    private void CreateMesh()
     {
-        // Set the mesh for this GameObject to a new Mesh instance.
-        var mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
+        // Get the mesh for this GameObject.
+        var mesh = GetComponent<MeshFilter>().mesh;
 
         // Generate a vertex grid for the mesh. The offset vector makes the final mesh centered on 0 in X and Z.
         GenerateElevationGrid(mesh, Resolution, new Vector3(-0.5f, 0.0f, -0.5f));
@@ -58,9 +61,6 @@ public class TerrainTile : MonoBehaviour
             // When the normal map is not used, use approximate normals calculated at vertices.
             mesh.RecalculateNormals();
         }
-
-        mResolution = Resolution;
-        mUseNormalMap = UseNormalMap;
     }
 
     // Runs once per frame.
@@ -70,12 +70,6 @@ public class TerrainTile : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             transform.Rotate(Vector3.up, -Input.GetAxis("Mouse X") * 10.0f);
-        }
-
-        // If the editor has updated any options, apply them now.
-        if (mResolution != Resolution || mUseNormalMap != UseNormalMap)
-        {
-            ApplyElevation();
         }
     }
 
