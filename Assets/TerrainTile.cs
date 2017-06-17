@@ -23,6 +23,16 @@ public class TerrainTile : MonoBehaviour
         ApplyElevation();
     }
 
+    public void SetUseNormalMap(bool use)
+    {
+        UseNormalMap = use;
+    }
+
+    public void SetResolution(float resolution)
+    {
+        Resolution = (int)resolution;
+    }
+
     // Generate a uniform grid of vertices, elevate them according to a texture, and apply a normal map.
     private void ApplyElevation()
     {
